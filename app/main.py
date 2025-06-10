@@ -17,19 +17,19 @@ def create_person_list(people_dicts: list[dict]) -> list[Person]:
         current_person_obj = Person.people[current_person_name]
 
         wife_name = person_dict.get("wife")
-        if wife_name:
-            if wife_name in Person.people:
-                current_person_obj.wife = Person.people[wife_name]
-            else:
-                print(f"Warning: Wife \"{wife_name}\" not found for "
-                      f"\"{current_person_obj.name}\".")
+        wife_object = Person.people.get(wife_name)
+        if wife_object:
+            current_person_obj.wife = wife_object
+        elif wife_name is not None:
+            print(f"Warning: Wife \"{wife_name}\" not found for "
+                  f"\"{current_person_obj.name}\".")
 
         husband_name = person_dict.get("husband")
-        if husband_name:
-            if husband_name in Person.people:
-                current_person_obj.husband = Person.people[husband_name]
-            else:
-                print(f"Warning: Husband \"{husband_name}\" not found for "
-                      f"\"{current_person_obj.name}\".")
+        husband_object = Person.people.get(husband_name)
+        if husband_object:
+            current_person_obj.husband = husband_object
+        elif husband_name is not None:
+            print(f"Warning: Husband \"{husband_name}\" not found for "
+                  f"\"{current_person_obj.name}\".")
 
     return person_instances
